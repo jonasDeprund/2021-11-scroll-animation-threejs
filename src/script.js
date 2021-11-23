@@ -40,6 +40,8 @@ const material = new THREE.MeshToonMaterial({
 });
 
 // Meshes
+const objectsDistance = 4;
+
 const mesh1 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
 
 const mesh2 = new THREE.Mesh(new THREE.ConeGeometry(1, 2, 32), material);
@@ -49,7 +51,13 @@ const mesh3 = new THREE.Mesh(
   material
 );
 
+mesh1.position.y = -objectsDistance * 0;
+mesh2.position.y = -objectsDistance * 1;
+mesh3.position.y = -objectsDistance * 2;
+
 scene.add(mesh1, mesh2, mesh3);
+
+const sectionMeshes = [mesh1, mesh2, mesh3];
 
 /**
  * Light
@@ -105,12 +113,30 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 /**
+ * Scroll Section
+ */
+let scrollY = window.scrollY;
+
+window.addEventListener('scroll', () => {
+  scrollY = window.scrollY;
+});
+
+/**
  * Animate
  */
 const clock = new THREE.Clock();
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
+
+  // Animate camera
+  camera.position.y = (-scrollY / sizes.height) * objectsDistance;
+
+  // Animate meshes
+  for (const mesh of sectionMeshes) {
+    mesh.rotation.x = elapsedTime * 0.1;
+    mesh.rotation.y = elapsedTime * 0.12;
+  }
 
   // Render
   renderer.render(scene, camera);
