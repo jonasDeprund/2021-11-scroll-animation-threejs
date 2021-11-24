@@ -64,6 +64,39 @@ scene.add(mesh1, mesh2, mesh3);
 const sectionMeshes = [mesh1, mesh2, mesh3];
 
 /**
+ * Particules
+ */
+
+// Geometry
+const particulesCount = 2000;
+const positions = new Float32Array(particulesCount * 3);
+
+for (let i = 0; i < particulesCount; i++) {
+  positions[i * 3 + 0] = Math.random();
+  positions[i * 3 + 1] = Math.random();
+  positions[i * 3 + 2] = Math.random();
+}
+
+const particulesGeometry = new THREE.BufferGeometry();
+particulesGeometry.setAttribute(
+  'position',
+  new THREE.BufferAttribute(positions, 3)
+);
+
+// Material
+
+const particulesMaterial = new THREE.PointsMaterial({
+  color: parameters.materialColor,
+  sizeAttenuation: true,
+  size: 0.03,
+});
+
+// Points
+
+const particules = new THREE.Points(particulesGeometry, particulesMaterial);
+scene.add(particules);
+
+/**
  * Light
  */
 
@@ -145,19 +178,23 @@ const cursor = {};
  * Animate
  */
 const clock = new THREE.Clock();
+let previousTime = 0;
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
+  const deltaTime = elapsedTime - previousTime;
+  previousTime = elapsedTime;
 
   // Animate camera
   camera.position.y = (-scrollY / sizes.height) * objectsDistance;
 
-  const parallaxX = cursor.x;
-  const parallaxY = -cursor.y;
+  const parallaxX = cursor.x * 0.5;
+  const parallaxY = -cursor.y * 0.5;
 
-  cameraGroup.position.x = parallaxX;
-  cameraGroup.position.y = parallaxY;
-
+  cameraGroup.position.x +=
+    (parallaxX - cameraGroup.position.x) * 3 * deltaTime;
+  cameraGroup.position.y +=
+    (parallaxY - cameraGroup.position.y) * 3 * deltaTime;
   // Animate meshes
   for (const mesh of sectionMeshes) {
     mesh.rotation.x = elapsedTime * 0.1;
