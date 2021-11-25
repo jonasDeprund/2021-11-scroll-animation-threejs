@@ -1,6 +1,7 @@
 import './style.css';
 import * as THREE from 'three';
-import * as dat from 'lil-gui';
+import * as dat from 'dat-gui';
+import gsap from 'gsap';
 
 /**
  * Debug
@@ -13,6 +14,7 @@ const parameters = {
 
 gui.addColor(parameters, 'materialColor').onChange(() => {
   material.color.set(parameters.materialColor);
+  particulesMaterial.color.set(parameters.materialColor);
 });
 
 /**
@@ -68,13 +70,15 @@ const sectionMeshes = [mesh1, mesh2, mesh3];
  */
 
 // Geometry
-const particulesCount = 2000;
+const particulesCount = 200;
 const positions = new Float32Array(particulesCount * 3);
 
 for (let i = 0; i < particulesCount; i++) {
-  positions[i * 3 + 0] = Math.random();
-  positions[i * 3 + 1] = Math.random();
-  positions[i * 3 + 2] = Math.random();
+  positions[i * 3 + 0] = (Math.random() - 0.5) * 10;
+  positions[i * 3 + 1] =
+    objectsDistance * 0.5 -
+    Math.random() * objectsDistance * sectionMeshes.length;
+  positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
 }
 
 const particulesGeometry = new THREE.BufferGeometry();
@@ -154,12 +158,18 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 /**
- * Scroll Section
+ * Scroll
  */
 let scrollY = window.scrollY;
+let currentSection = 0;
 
 window.addEventListener('scroll', () => {
   scrollY = window.scrollY;
+  const newSection = Math.round(scrollY / sizes.height);
+
+  if (newSection !== currentSection) {
+    currentSection = newSection;
+  }
 });
 
 /**
