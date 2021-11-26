@@ -2,6 +2,7 @@ import './style.css';
 import * as THREE from 'three';
 import * as dat from 'dat-gui';
 import gsap from 'gsap';
+console.log(gsap);
 
 /**
  * Debug
