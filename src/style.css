@@ -4,7 +4,7 @@
 }
 
 html {
-  background-color: #1e1a20;
+  background-color: #151522;
 }
 
 .webgl {
@@ -20,13 +20,16 @@ html {
   height: 100vh;
   position: relative;
   font-family: 'Cabin', sans-serif;
-  color: #ffeded;
-  text-transform: uppercase;
-  font-size: 7vmin;
+  color: #ffffff;
+  font-size: 6vmin;
   padding-left: 10%;
   padding-right: 10%;
 }
 
 section:nth-child(odd) {
   justify-content: flex-end;
+}
+
+.title {
+  font-family: 'Marr Sans Web';
 }

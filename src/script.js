@@ -2,7 +2,7 @@ import './style.css';
 import * as THREE from 'three';
 import * as dat from 'lil-gui';
 import gsap from 'gsap';
-console.log(gsap);
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 /**
  * Debug
@@ -30,6 +30,39 @@ const scene = new THREE.Scene();
 /**
  * objects
  */
+
+/**
+ * Models
+ */
+const model1 = new GLTFLoader();
+
+model1.load('/models/party.glb', function (gltf) {
+  // called when the resource is loaded
+  gltf.scene.scale.set(2, 2, 2);
+  gltf.scene.position.y = -objectsDistance * 0 - 1;
+  gltf.scene.position.x = 2;
+  scene.add(gltf.scene);
+});
+
+const model2 = new GLTFLoader();
+
+model1.load('/models/party.glb', function (gltf) {
+  // called when the resource is loaded
+  gltf.scene.scale.set(2, 2, 2);
+  gltf.scene.position.y = -objectsDistance * 1 - 1;
+  gltf.scene.position.x = -2;
+  scene.add(gltf.scene);
+});
+
+const model3 = new GLTFLoader();
+
+model1.load('/models/party.glb', function (gltf) {
+  // called when the resource is loaded
+  gltf.scene.scale.set(2, 2, 2);
+  gltf.scene.position.y = -objectsDistance * 2 - 1;
+  gltf.scene.position.x = 2;
+  scene.add(gltf.scene);
+});
 
 // Texture
 const textureLoader = new THREE.TextureLoader();
@@ -71,6 +104,7 @@ const sectionMeshes = [mesh1, mesh2, mesh3];
  */
 
 // Geometry
+
 const particulesCount = 200;
 const positions = new Float32Array(particulesCount * 3);
 
@@ -106,7 +140,7 @@ scene.add(particules);
  */
 
 const directionalLight = new THREE.DirectionalLight('#ffffff', 1);
-directionalLight.position.set(1, 1, 0);
+directionalLight.position.set(-2, -2, 4);
 scene.add(directionalLight);
 
 /**
