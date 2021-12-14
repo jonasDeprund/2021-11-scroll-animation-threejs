@@ -4,7 +4,7 @@
 }
 
 html {
-  background-color: #151522;
+  background-color: #14114d;
 }
 
 .webgl {
@@ -21,7 +21,7 @@ html {
   position: relative;
   font-family: 'Cabin', sans-serif;
   color: #ffffff;
-  font-size: 6vmin;
+  font-size: 7vmin;
   padding-left: 10%;
   padding-right: 10%;
 }
@@ -32,4 +32,5 @@ section:nth-child(odd) {
 
 .title {
   font-family: 'Marr Sans Web';
+  color: #e8e9ed;
 }

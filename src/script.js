@@ -40,7 +40,7 @@ model1.load('/models/party.glb', function (gltf) {
   // called when the resource is loaded
   gltf.scene.scale.set(2, 2, 2);
   gltf.scene.position.y = -objectsDistance * 0 - 1;
-  gltf.scene.position.x = 2;
+  gltf.scene.position.x = 1.5;
   scene.add(gltf.scene);
 });
 
@@ -60,7 +60,7 @@ model1.load('/models/party.glb', function (gltf) {
   // called when the resource is loaded
   gltf.scene.scale.set(2, 2, 2);
   gltf.scene.position.y = -objectsDistance * 2 - 1;
-  gltf.scene.position.x = 2;
+  gltf.scene.position.x = 1.5;
   scene.add(gltf.scene);
 });
 
@@ -95,7 +95,7 @@ mesh1.position.x = 2;
 mesh2.position.x = -2;
 mesh3.position.x = 2;
 
-scene.add(mesh1, mesh2, mesh3);
+// scene.add(mesh1, mesh2, mesh3);
 
 const sectionMeshes = [mesh1, mesh2, mesh3];
 
