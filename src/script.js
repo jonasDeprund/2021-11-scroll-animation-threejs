@@ -46,7 +46,7 @@ model1.load('/models/party.glb', function (gltf) {
 
 const model2 = new GLTFLoader();
 
-model1.load('/models/party.glb', function (gltf) {
+model1.load('/models/star.gltf', function (gltf) {
   // called when the resource is loaded
   gltf.scene.scale.set(2, 2, 2);
   gltf.scene.position.y = -objectsDistance * 1 - 1;
@@ -63,6 +63,13 @@ model1.load('/models/party.glb', function (gltf) {
   gltf.scene.position.x = 1.5;
   scene.add(gltf.scene);
 });
+
+/**
+ * Light
+ */
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 3);
+scene.add(ambientLight);
 
 // Texture
 const textureLoader = new THREE.TextureLoader();
@@ -134,14 +141,6 @@ const particulesMaterial = new THREE.PointsMaterial({
 
 const particules = new THREE.Points(particulesGeometry, particulesMaterial);
 scene.add(particules);
-
-/**
- * Light
- */
-
-const directionalLight = new THREE.DirectionalLight('#ffffff', 1);
-directionalLight.position.set(-2, -2, 4);
-scene.add(directionalLight);
 
 /**
  * Sizes
@@ -226,6 +225,8 @@ const cursor = {};
     cursor.y = event.clientY / sizes.height - 0.5;
     console.log(cursor.x);
   });
+
+renderer.physicallyCorrectLights = true;
 
 /**
  * Animate
